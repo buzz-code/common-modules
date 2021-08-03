@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 
 import { getLocalStorage } from './storageUtil';
-import { JWT_TOKEN } from '../../../client/config/config';
+import { JWT_TOKEN } from '../config/config';
 
 export let isTokenExpired = (token) => {
   try {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API_URL, JWT_TOKEN } from '../../../client/config/config';
+import { API_URL, JWT_TOKEN } from '../config/config';
 import { getLocalStorage } from './storageUtil';
 
 export const httpBase = () => {

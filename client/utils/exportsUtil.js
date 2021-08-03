@@ -1,6 +1,6 @@
 import { CsvBuilder } from 'filefy';
 
-import * as httpService from '../../../client/services/httpService';
+import * as httpService from '../services/httpService';
 
 const getExportData = (entity, filters, columns) => {
   return httpService
