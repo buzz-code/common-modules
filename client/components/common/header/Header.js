@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import * as authService from '../../../services/authService';
+import PACKAGE from '../../../../../package.json';
 
 const drawerWidth = 240;
 
@@ -74,7 +75,7 @@ class Header extends Component {
               noWrap
               className={classes.title}
             >
-              תיקופון
+              {PACKAGE.dispalyName}
             </Typography>
             <Button onClick={this.logOut.bind(this)}>התנתק</Button>
           </Toolbar>

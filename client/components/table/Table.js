@@ -41,6 +41,8 @@ const Table = ({
     let dataToSave = {
       ...rowData,
       tableData: undefined,
+      created_at: undefined,
+      updated_at: undefined,
     };
     if (manipulateDataToSave) {
       dataToSave = manipulateDataToSave(dataToSave);
@@ -91,7 +93,9 @@ const Table = ({
       {error && <CustomizedSnackbar variant="error" message={error} />}
       {validationError && <CustomizedSnackbar variant="error" message={validationError} />}
 
-      {filters && <TableFilter filters={filters} onFilterChange={handleFilterChange} />}
+      {filters && filters.length > 0 && (
+        <TableFilter filters={filters} onFilterChange={handleFilterChange} />
+      )}
 
       <MaterialTable
         title={tableTitle}
