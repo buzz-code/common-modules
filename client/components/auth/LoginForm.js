@@ -9,8 +9,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 
 // Import custom components
-import renderText from '../../../../client/components/common/form/renderText';
-import CustomizedSnackbar from '../../../../client/components/common/snakebar/CustomizedSnackbar';
+import renderText from '../common/form/renderText';
+import CustomizedSnackbar from '../common/snakebar/CustomizedSnackbar';
 
 const styles = {
   root: {
