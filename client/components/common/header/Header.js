@@ -75,7 +75,7 @@ class Header extends Component {
               noWrap
               className={classes.title}
             >
-              {PACKAGE.dispalyName}
+              {PACKAGE.displayName}
             </Typography>
             <Button onClick={this.logOut.bind(this)}>התנתק</Button>
           </Toolbar>
