@@ -3,7 +3,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
 export const getPropsForAutoComplete = (field, list) => ({
-  render: (rowData) => <span>{list.find((item) => item.id == rowData[field]).name}</span>,
+  render: (rowData) => <span>{list.find((item) => item.id == rowData[field])?.name}</span>,
   editComponent: (props) => (
     <Autocomplete
       size="small"
