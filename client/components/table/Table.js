@@ -21,6 +21,7 @@ const Table = ({
   entity,
   title,
   columns,
+  additionalActions,
   filters,
   validateRow,
   manipulateDataToSave,
@@ -101,7 +102,7 @@ const Table = ({
         title={tableTitle}
         tableRef={tableRef}
         columns={columns}
-        actions={actions}
+        actions={[...actions, ...additionalActions]}
         data={getData}
         // isLoading={isLoading}
         onChangeRowsPerPage={setCurrentPageSize}
