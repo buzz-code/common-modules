@@ -17,6 +17,8 @@ app.set('host', process.env.APP_HOST || 'localhost');
 
 app.use('/dist', express.static(constant.distDir));
 
+app.set('view engine', 'ejs');
+
 app.use(cors());
 app.use(helmet());
 app.use(compression());
