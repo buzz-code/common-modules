@@ -21,13 +21,14 @@ const Table = ({
   entity,
   title,
   columns,
-  additionalActions,
+  additionalActions = [],
   filters,
   validateRow,
   manipulateDataToSave,
   disableAdd,
   disableUpdate,
   disableDelete,
+  onConditionUpdate,
 }) => {
   const dispatch = useDispatch();
   const { isLoading, data, error } = useSelector((state) => state[entity]);
@@ -85,6 +86,7 @@ const Table = ({
 
   useEffect(() => {
     tableRef.current && tableRef.current.onQueryChange();
+    onConditionUpdate && onConditionUpdate(conditions);
   }, [conditions]);
 
   return (
