@@ -3,7 +3,7 @@ import axios from 'axios';
 import { API_URL, JWT_TOKEN } from '../config/config';
 import { getLocalStorage } from './storageUtil';
 
-export const httpBase = () => {
+export const httpBase = (responseType) => {
   const api = axios.create({
     baseURL: `${API_URL}`,
     headers: {
@@ -12,7 +12,7 @@ export const httpBase = () => {
       'X-XSRF-TOKEN': getLocalStorage(JWT_TOKEN),
       Authorization: 'bearer ' + getLocalStorage(JWT_TOKEN),
     },
-    responseType: 'json',
+    responseType,
   });
 
   api.interceptors.response.use(

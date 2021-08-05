@@ -34,13 +34,13 @@ export const destroyEntity = (entityName, dataId) => {
   return destroy(getPathParam(entityName.toLowerCase(), dataId));
 };
 
-export const customHttpRequest = (entityName, method, url, data, dataId) => {
+export const customHttpRequest = (entityName, method, url, data, dataId, responseType) => {
   const mapping = { GET: fetch, POST: store, PUT: update, DELETE: destroy };
-  return mapping[method](getPathParam(entityName.toLowerCase(), url, dataId), data);
+  return mapping[method](getPathParam(entityName.toLowerCase(), url, dataId), data, responseType);
 };
 
 export const downloadFile = (entityName, method, url, data, dataId) => {
-  return customHttpRequest(entityName, method, url, data, dataId)
+  return customHttpRequest(entityName, method, url, data, dataId, 'blob')
     .then(response => {
       const filename = response.headers["content-disposition"].match(/filename="(.+)"/)[1];
       fileDownload(response.data, filename);
