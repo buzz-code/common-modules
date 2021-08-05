@@ -1,7 +1,7 @@
 import express from 'express';
 import isAuthenticated from '../../../server/middlewares/authenticate';
 import validate from '../config/joi.validate';
-import schema from '../../../server/utils/validator';
+import schema from '../utils/validator';
 
 export default (ctrl, callback) => {
     const router = express.Router();
