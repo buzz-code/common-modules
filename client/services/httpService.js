@@ -1,6 +1,7 @@
 // Import custom utils
 import { fetch, store, update, destroy } from '../utils/httpUtil';
 import { getPathParam } from '../utils/serializeUtil';
+import fileDownload from 'js-file-download';
 
 export const fetchEntity = (
   entityName,
@@ -36,4 +37,12 @@ export const destroyEntity = (entityName, dataId) => {
 export const customHttpRequest = (entityName, method, url, data, dataId) => {
   const mapping = { GET: fetch, POST: store, PUT: update, DELETE: destroy };
   return mapping[method](getPathParam(entityName.toLowerCase(), url, dataId), data);
+};
+
+export const downloadFile = (entityName, method, url, data, dataId) => {
+  return customHttpRequest(entityName, method, url, data, dataId)
+    .then(response => {
+      const filename = response.headers["content-disposition"].match(/filename="(.+)"/)[1];
+      fileDownload(response.data, filename);
+    });
 };

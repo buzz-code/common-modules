@@ -114,3 +114,17 @@ export const customHttpRequest = (entity, method, url, data, id) => {
       });
   };
 };
+
+export const download = (entity, method, url, data, id) => {
+  return (dispatch) => {
+    dispatch(commonAction.loading(entity));
+    return httpService
+      .downloadFile(entity, method, url, data, id)
+      .then((response) => {
+        // return dispatch(commonAction.download(entity, method, url, response.data));
+      })
+      .catch((error) => {
+        return dispatch(commonAction.failure(entity, error.response.data));
+      });
+  };
+};
