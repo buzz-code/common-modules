@@ -1,5 +1,5 @@
 var path = require('path');
-var rootPath = path.normalize(__dirname, '..', '..', '..')
+var rootPath = path.join(__dirname, '..', '..', '..')
 
 const directory = {
     root: rootPath,
