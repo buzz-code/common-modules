@@ -2,6 +2,7 @@
 import { fetch, store, update, destroy } from '../utils/httpUtil';
 import { getPathParam } from '../utils/serializeUtil';
 import fileDownload from 'js-file-download';
+import contentDisposition from 'content-disposition';
 
 export const fetchEntity = (
   entityName,
@@ -42,7 +43,7 @@ export const customHttpRequest = (entityName, method, url, data, dataId, respons
 export const downloadFile = (entityName, method, url, data, dataId) => {
   return customHttpRequest(entityName, method, url, data, dataId, 'blob')
     .then(response => {
-      const filename = response.headers["content-disposition"].match(/filename="(.+)"/)[1];
-      fileDownload(response.data, filename);
+      const disposition = contentDisposition.parse(response.headers["content-disposition"]);
+      fileDownload(response.data, disposition.parameters.filename);
     });
 };

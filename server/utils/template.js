@@ -38,3 +38,8 @@ export function getPdfStreamFromHtml(html, options) {
 export function getFileName(name, ext) {
     return name + ' ' + new Date().toISOString() + '.' + ext;
 }
+
+export function downloadFileFromStream(fileStream, filename, ext, res) {
+    res.attachment(getFileName(filename, ext));
+    fileStream.pipe(res);
+}
