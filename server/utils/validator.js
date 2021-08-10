@@ -8,6 +8,18 @@ export default {
             password: Joi.string().min(6).required()
         }),
 
+    storeUser: Joi.object({
+        name: Joi.string().required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().min(6).required()
+    }),
+
+    updateUser: Joi.object({
+        name: Joi.string().required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().min(6).required()
+    }),
+
     login:
         Joi.object({
             username: Joi.string().required(),
@@ -15,4 +27,5 @@ export default {
         }),
 
     any: Joi.any(),
+    storeReport: Joi.any(),
 };
