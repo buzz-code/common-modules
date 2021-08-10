@@ -73,7 +73,7 @@ export default (model, fromClientToServer, fromServerToClient) => ({
      * @returns {*}
      */
     findAll: function (req, res) {
-        const dbQuery = new model({ user_id: req.currentUser.id });
+        const dbQuery = new model().where({ user_id: req.currentUser.id });
         applyFilters(dbQuery, req.query.filters);
         fetchPage({ dbQuery }, req.query, res, fromServerToClient);
     },
