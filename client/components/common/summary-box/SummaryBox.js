@@ -7,15 +7,19 @@ import { withStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 
 const styles = () => ({
+  container: {
+    textAlign: 'center',
+  },
   root: {
     padding: '5px 10px',
     marginLeft: 90,
-    height: 80,
   },
   number: {
     display: 'block',
-    fontSize: 18,
+    fontSize: 24,
     color: grey[800],
+    paddingBottom: 12,
+    fontWeight: 'bold',
   },
   text: {
     fontSize: 20,
@@ -23,14 +27,16 @@ const styles = () => ({
   },
   iconSpan: {
     float: 'left',
-    height: 90,
-    width: 90,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    width: 75,
     textAlign: 'center',
   },
   icon: {
     height: 48,
     width: 48,
-    marginTop: 20,
     maxWidth: '100%',
   },
 });
@@ -39,17 +45,17 @@ const SummaryBox = (props) => {
   const { classes, color, title, value, Icon } = props;
 
   return (
-    <Card>
+    <Card className={classes.container}>
       <CardContent>
-        <Grid container justify="space-between">
+        <Grid container justify="center">
           <Grid item>
-            <span className={classes.iconSpan} style={{ backgroundColor: color }}>
+            <span className={classes.iconSpan} style={{ color }}>
               <Icon className={classes.icon} />
             </span>
 
             <div className={classes.root}>
-              <span className={classes.text}>{title}</span>
               <span className={classes.number}>{value}</span>
+              <span className={classes.text}>{title}</span>
             </div>
           </Grid>
         </Grid>
