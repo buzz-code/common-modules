@@ -19,6 +19,7 @@ const ExcelImport = ({ title, supportedEntities }) => {
   const selectedEntity = supportedEntities[entityIndex];
   const {
     POST: { 'upload-multiple': uploadResult },
+    error,
   } = useSelector((state) => state[selectedEntity.value]);
 
   const handleFile = (file) => {
@@ -58,6 +59,7 @@ const ExcelImport = ({ title, supportedEntities }) => {
       {uploadResult && (
         <CustomizedSnackbar variant={uploadResult.variant} message={uploadResult.message} />
       )}
+      {error && <CustomizedSnackbar variant="error" message={error} />}
 
       <Grid container>
         <Grid item xs={4}>
