@@ -9,7 +9,7 @@ export const fetchEntity = (
   { error, orderBy, orderDirection, page, pageSize, search, totalCount },
   filters
 ) => {
-  const columnOrder = orderBy && orderBy.field;
+  const columnOrder = orderBy?.columnOrder || orderBy?.field;
   return fetch(entityName.toLowerCase(), {
     page,
     pageSize,
