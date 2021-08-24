@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
   },
   inputField: {
     margin: theme.spacing(1),
+    display: 'inline-flex',
+    width: 200,
   },
   buttonContainer: {
     display: 'flex',

@@ -3,12 +3,12 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
 export const getPropsForAutoComplete = (field, list, idField = 'id') => ({
-  render: (rowData) => <span>{list.find((item) => item[idField] == rowData[field])?.name}</span>,
+  render: (rowData) => <span>{list?.find((item) => item[idField] == rowData[field])?.name}</span>,
   editComponent: (props) => (
     <Autocomplete
       size="small"
-      options={list}
-      getOptionLabel={(option) => option.name || list.find((item) => item[idField] == props.value).name}
+      options={list || []}
+      getOptionLabel={(option) => option.name || list?.find((item) => item[idField] == props.value).name}
       getOptionSelected={(option, value) => option[idField] == value}
       value={props.value}
       renderInput={(params) => {
