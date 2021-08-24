@@ -21,6 +21,7 @@ const getExportData = (entity, filters, columns) => {
 };
 
 const getFieldValue = (rowData, columnDef, lookup = true) => {
+  //todo: what about autocomplete?
   let value =
     typeof rowData[columnDef.field] !== 'undefined'
       ? rowData[columnDef.field]
