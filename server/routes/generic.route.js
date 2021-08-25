@@ -1,5 +1,5 @@
 import express from 'express';
-import isAuthenticated from '../../../server/middlewares/authenticate';
+import isAuthenticated from '../middlewares/authenticate';
 import validate from '../config/joi.validate';
 import schema from '../utils/validator';
 
