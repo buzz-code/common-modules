@@ -125,8 +125,9 @@ export const download = (entity, method, url, data, id) => {
       })
       .catch((error) => {
         return error.response.data.text()
-        .then(JSON.parse)
-        .then(error => dispatch(commonAction.failure(entity, error)));
+          .then(JSON.parse)
+          .then(error => dispatch(commonAction.failure(entity, error)))
+          .then(Promise.reject);
       });
   };
 };

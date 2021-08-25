@@ -106,7 +106,7 @@ const Table = ({
         columns={columns}
         actions={[...actions, ...additionalActions]}
         data={getData}
-        // isLoading={isLoading}
+        isLoading={isLoading}
         onChangeRowsPerPage={setCurrentPageSize}
         editable={{
           onRowAdd: disableAdd ? null : onRowAdd,
