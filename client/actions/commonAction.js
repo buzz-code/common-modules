@@ -8,6 +8,7 @@ import {
   SELECT_ENTITY_ITEM,
   CLEAR_ENTITY_LIST,
   CUSTOM_HTTP_REQUEST,
+  DOWNLOAD,
 } from '../constants/actionType';
 
 export const loading = (entity, error) => {
@@ -79,5 +80,14 @@ export const customHttpRequest = (entity, method, url, data) => {
     method: method,
     url: url,
     data: data,
+  };
+};
+
+export const download = (entity, method, url) => {
+  return {
+    type: DOWNLOAD,
+    entity: entity,
+    method: method,
+    url: url,
   };
 };

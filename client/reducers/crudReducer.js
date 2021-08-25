@@ -8,6 +8,7 @@ import {
   ENTITY_DELETE,
   CLEAR_ENTITY_LIST,
   CUSTOM_HTTP_REQUEST,
+  DOWNLOAD,
 } from '../constants/actionType';
 
 let initialState = {
@@ -101,6 +102,13 @@ export default function (entity) {
           [action.method]: {
             [action.url]: action.data.data,
           },
+        };
+
+      case DOWNLOAD:
+        return {
+          ...state,
+          error: null,
+          isLoading: false,
         };
 
       default:
