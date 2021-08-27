@@ -41,6 +41,7 @@ export const applyFilters = (query, filters) => {
     if (filters) {
         const filtersObj = JSON.parse(filters);
         for (const filter of Object.values(filtersObj)) {
+            if (!filter.value) continue;
             switch (filter.operator) {
                 case 'like':
                     query.where(filter.field, 'like', '%' + filter.value + '%');
