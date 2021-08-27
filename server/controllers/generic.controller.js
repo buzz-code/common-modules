@@ -1,15 +1,12 @@
 import HttpStatus from 'http-status-codes';
 import moment from 'moment';
 
-export const fetchPage = async (queries, metadata, res, fromServerToClient) => {
-    try {
-        const data = await fetchPagePromise(queries, metadata, fromServerToClient);
-        res.json(data);
-    } catch (err) {
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+export const fetchPage = (queries, metadata, res, fromServerToClient) => {
+    fetchPagePromise(queries, metadata, fromServerToClient)
+        .then(data => res.json(data))
+        .catch(err => res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
             error: err.message
-        });
-    }
+        }));
 }
 
 export const fetchPagePromise = async ({ dbQuery, countQuery }, { page, pageSize, orderBy, orderDirection }, fromServerToClient) => {
