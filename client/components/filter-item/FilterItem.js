@@ -28,7 +28,7 @@ const FilterItem = ({ item, index, onChange, classes }) => {
   ) : item.type === 'list' ? (
     <Autocomplete
       className={classes.inputField}
-      onInputChange={handleAutocompleteChange}
+      onChange={handleAutocompleteChange}
       options={item.list || []}
       getOptionLabel={(option) => option.name}
       renderInput={(params) => <TextField {...params}
