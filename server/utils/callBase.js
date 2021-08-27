@@ -25,7 +25,7 @@ export class CallBase {
         this.waitForResponse().then(this.start.bind(this))
     }
     async getTexts() {
-        const response = await new Text({ user_id: this.user.id }).query({ select: ['name', 'value'] }).fetchAll();
+        const response = await new Text().where({ user_id: this.user.id }).query({ select: ['name', 'value'] }).fetchAll();
         response.toJSON().forEach(item => this.texts[item.name] = item.value);
     }
     async start() {

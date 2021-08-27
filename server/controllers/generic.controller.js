@@ -87,7 +87,8 @@ export default (model, fromClientToServer, fromServerToClient) => ({
      * @returns {*}
      */
     findById: function (req, res) {
-        new model({ id: req.params.id, user_id: req.currentUser.id })
+        new model()
+            .where({ id: req.params.id, user_id: req.currentUser.id })
             .fetch()
             .then(item => {
                 let itemToReturn = fromServerToClient ? fromServerToClient(item.toJSON()) : item.toJSON();
@@ -117,7 +118,8 @@ export default (model, fromClientToServer, fromServerToClient) => ({
      */
     store: function (req, res) {
         const itemToSave = fromClientToServer ? fromClientToServer(req.body) : req.body;
-        new model({ user_id: req.currentUser.id, ...itemToSave })
+        new model()
+            .where({ user_id: req.currentUser.id, ...itemToSave })
             .save()
             .then(() => res.json({
                 error: null,
@@ -137,7 +139,8 @@ export default (model, fromClientToServer, fromServerToClient) => ({
      */
     update: function (req, res) {
         const itemToSave = fromClientToServer ? fromClientToServer(req.body) : req.body;
-        new model({ id: req.params.id, user_id: req.currentUser.id })
+        new model()
+            .where({ id: req.params.id, user_id: req.currentUser.id })
             .fetch({ require: true })
             .then(item => item.save({
                 ...itemToSave,
@@ -159,7 +162,8 @@ export default (model, fromClientToServer, fromServerToClient) => ({
      * @returns {*}
      */
     destroy: function (req, res) {
-        new model({ id: req.params.id, user_id: req.currentUser.id })
+        new model()
+            .where({ id: req.params.id, user_id: req.currentUser.id })
             .fetch({ require: true })
             .then(item => item.destroy())
             .then(() => res.json({
