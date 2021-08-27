@@ -13,7 +13,7 @@ const FilterItem = ({ item, index, onChange, classes }) => {
   }, [item, index, onChange]);
 
   const handleTextFieldChange = e => handleChange(e.target.value);
-  const handleAutocompleteChange = (e, val) => handleChange(val);
+  const handleAutocompleteChange = (e, val) => handleChange(val?.name);
 
   return item.type === 'text' || item.type === 'date' ? (
     <TextField
