@@ -4,7 +4,7 @@ import * as httpService from '../services/httpService';
 
 const getExportData = (entity, filters, columns) => {
   return httpService
-    .fetchEntity(entity, { page: 0, pageSize: 1000 }, filters)
+    .fetchEntity(entity, { page: 0, pageSize: 10000 }, filters)
     .then((response) => response.data)
     .then((response) => response.data)
     .then((data) => {
@@ -20,14 +20,10 @@ const getExportData = (entity, filters, columns) => {
     });
 };
 
-const getFieldValue = (rowData, columnDef, lookup = true) => {
-  //todo: what about autocomplete?
-  let value =
-    typeof rowData[columnDef.field] !== 'undefined'
-      ? rowData[columnDef.field]
-      : byString(rowData, columnDef.field);
-  if (columnDef.lookup && lookup) {
-    value = columnDef.lookup[value];
+const getFieldValue = (rowData, columnDef) => {
+  let value = rowData[columnDef.field] ?? ''
+  if (columnDef.list) {
+    value = columnDef.list?.find((item) => item[columnDef.idField] == value)?.name;
   }
 
   return value;
@@ -41,3 +37,12 @@ export const exportCsv = (columns, entity, filters, title) => {
     builder.setDelimeter(',').setColumns(columns).addRows(data).exportFile();
   });
 };
+
+export const exportPdf = (columns, entity, filters, title) => {
+  getExportData(entity, filters, columns).then(({ data, columns }) => {
+    let fileName = title || 'data';
+
+    httpService
+      .downloadFile(entity, 'POST', 'export-pdf', { data, columns, fileName });
+  });
+}

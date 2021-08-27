@@ -5,7 +5,7 @@ import CustomizedSnackbar from '../common/snakebar/CustomizedSnackbar';
 import * as crudAction from '../../actions/crudAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { materialTableOptions, materialTableLocalizations } from '../../config/config';
-import { exportCsv } from '../../utils/exportsUtil';
+import { exportCsv, exportPdf } from '../../utils/exportsUtil';
 import TableFilter from '../table-filter/TableFilter';
 
 const getActions = (tableRef) => [
@@ -120,6 +120,10 @@ const Table = ({
             {
               label: 'ייצא לקובץ CSV',
               exportFunc: (cols, datas) => exportCsv(cols, entity, conditions, tableTitle),
+            },
+            {
+              label: 'ייצא לקובץ PDF',
+              exportFunc: (cols, datas) => exportPdf(cols, entity, conditions, tableTitle),
             },
           ],
         }}

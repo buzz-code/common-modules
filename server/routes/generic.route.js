@@ -2,6 +2,7 @@ import express from 'express';
 import isAuthenticated from '../middlewares/authenticate';
 import validate from '../config/joi.validate';
 import schema from '../utils/validator';
+import { exportPdf } from '../utils/template';
 
 export default (ctrl, callback) => {
     const router = express.Router();
@@ -34,6 +35,11 @@ export default (ctrl, callback) => {
     router.route('/upload-multiple')
         .post((req, res) => {
             ctrl.uploadMultiple(req, res);
+        });
+
+    router.route('/export-pdf')
+        .post((req, res) => {
+            exportPdf(req, res);
         });
 
     return router;

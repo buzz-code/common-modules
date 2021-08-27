@@ -1,5 +1,6 @@
 import ejs from "ejs";
 import pdf from "html-pdf";
+import path from 'path';
 
 export function renderEjsTemplate(template, data) {
     return new Promise((resolve, reject) => {
@@ -42,4 +43,20 @@ export function getFileName(name, ext) {
 export function downloadFileFromStream(fileStream, filename, ext, res) {
     res.attachment(getFileName(filename, ext));
     fileStream.pipe(res);
+}
+
+async function getPdfExport({ data, columns, fileName: filename }) {
+    const templatePath = path.join(__filename, '..', '..', '..', 'templates', 'export.ejs');
+    const templateData = { data, columns, title: filename };
+    const html = await renderEjsTemplate(templatePath, templateData);
+    const fileStream = await getPdfStreamFromHtml(html);
+    return { fileStream, filename };
+}
+
+export function exportPdf(req, res) {
+    getPdfExport(req.body)
+        .then(({ fileStream, filename }) => downloadFileFromStream(fileStream, filename, 'pdf', res))
+        .catch(err => res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+            message: err.message
+        }));
 }

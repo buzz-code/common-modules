@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <style>
+            html {
+                zoom: 0.75;
+            }
+            body {
+                direction: rtl;
+                font-family: CustomFont, 'Roboto', sans-serif;
+                font-size: 12px;
+            }
+            .container {
+                width: calc(100% - 100px);
+                max-width: 1200px;
+                margin: auto;
+                text-align: center;
+            }
+            h3 {
+                margin: 0;
+            }
+            .value {
+                font-weight: normal;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin-top: .5em;
+            }
+            table, th, td {
+                border: 1px solid black;
+                padding: 4px;
+            }
+            th {
+                /* background-color: #727fc9; */
+                border: 3px solid black;
+                /* font-size: 1.25rem; */
+                /* color: white; */
+            }
+            .student-name {
+                min-width: 75px;
+                max-width: 100px;
+            }
+            .empty_cell {
+                min-width: 60px;
+            }
+        </style>
+    </head>
+    <body>
+        <%- include('header', { title }); %>
+        <div class="container">
+            <table>
+            <% if (data.length > 0) { %>
+                <tr>
+                    <% for(var i = 0; i < columns.length; i++) {%>
+                        <th><%= columns[i] %></th>
+                    <% } %>
+                </tr>
+                <% data.forEach(item => {%>
+                    <tr>
+                        <% for(var i = 0; i < item.length; i++) {%>
+                            <td><%= item[i] %></td>
+                        <% } %>
+                    </tr>
+                <%  });%>
+            <% }%>
+            </table>
+        </div>
+    </body>
+</html>
