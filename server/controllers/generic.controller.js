@@ -115,8 +115,7 @@ export default (model, fromClientToServer, fromServerToClient) => ({
      */
     store: function (req, res) {
         const itemToSave = fromClientToServer ? fromClientToServer(req.body) : req.body;
-        new model()
-            .where({ user_id: req.currentUser.id, ...itemToSave })
+        new model({ user_id: req.currentUser.id, ...itemToSave })
             .save()
             .then(() => res.json({
                 error: null,
