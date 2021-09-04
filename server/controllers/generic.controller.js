@@ -10,12 +10,12 @@ export const fetchPage = (queries, metadata, res, fromServerToClient) => {
 }
 
 export const fetchPagePromise = async ({ dbQuery, countQuery }, { page, pageSize, orderBy, orderDirection }, fromServerToClient) => {
-    if (orderBy) {
-        dbQuery = dbQuery.query('orderBy', orderBy, orderDirection);
-    }
-
     if (!countQuery) {
         countQuery = dbQuery.clone().query(qb => { qb.clearSelect(); qb.clearGroup(); }).count();
+    }
+
+    if (orderBy) {
+        dbQuery = dbQuery.query('orderBy', orderBy, orderDirection);
     }
 
     dbQuery.query(qb => qb.offset(Number(pageSize) * Number(page)).limit(Number(pageSize)));
