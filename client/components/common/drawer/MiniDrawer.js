@@ -74,7 +74,7 @@ const MiniDrawer = ({ navDrawerOpen, handleToggleDrawer }) => {
         <>
           <Divider />
           <List>
-            <div>{item.map((item) => getNavLinkItem(item.path, item.icon, item.title))}</div>
+            <div>{item.map((item) => !item.hideFromDrawer && getNavLinkItem(item.path, item.icon, item.title))}</div>
           </List>
         </>
       ))}
