@@ -1,6 +1,8 @@
 import heLocale from 'date-fns/locale/he';
+import PACKAGE from '../../../package.json';
 
-export const apiPath = 'api/';
+const isBaseUrl = process.env.NODE_ENV === 'development' || PACKAGE.customDomain;
+export const apiPath = isBaseUrl ? '/api/' : 'api/';
 export const API_URL = apiPath;
 export const JWT_TOKEN = 'token';
 export const materialTableOptions = {
