@@ -100,6 +100,7 @@ export default function (entity) {
           error: null,
           isLoading: false,
           [action.method]: {
+            ...state[action.method],
             [action.url]: action.data.data,
           },
         };
