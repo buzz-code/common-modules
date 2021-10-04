@@ -40,6 +40,7 @@ export function genericErrorHandler(err, req, res, next) {
     logger.error(err);
     res.status(err.status || HttpStatus.INTERNAL_SERVER_ERROR)
         .json({
-            error: err.message || HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR)
+            error: err.message || HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR),
+            // stack: err.stack
         });
 }
