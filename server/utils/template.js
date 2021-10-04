@@ -36,6 +36,12 @@ export function getPdfStreamFromHtml(html, options) {
     });
 }
 
+export async function renderEjsTemplateToStream(template, data) {
+    const html = await renderEjsTemplate(template, data);
+    const fileStream = await getPdfStreamFromHtml(html);
+    return fileStream;
+}
+
 export function getFileName(name, ext) {
     return name + ' ' + new Date().toISOString() + '.' + ext;
 }
