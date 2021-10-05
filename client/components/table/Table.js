@@ -38,6 +38,7 @@ const Table = ({
   const tableRef = createRef();
   const tableTitle = useMemo(() => 'רשימת ' + title, [title]);
   const actions = useMemo(() => getActions(tableRef), [tableRef]);
+  const isFirstTimeRef = createRef(true);
 
   const getSaveItem = (rowData) => {
     let dataToSave = {
@@ -81,12 +82,18 @@ const Table = ({
   };
 
   useEffect(() => {
-    setConditions([]);
+    if (Object.keys(conditions).length) {
+      setConditions({});
+    }
   }, [entity]);
 
   useEffect(() => {
-    tableRef.current && tableRef.current.onQueryChange();
-    onConditionUpdate && onConditionUpdate(conditions);
+    if (isFirstTimeRef.current) {
+      isFirstTimeRef.current = false;
+    } else {
+      tableRef.current && tableRef.current.onQueryChange();
+      onConditionUpdate && onConditionUpdate(conditions);
+    }
   }, [conditions]);
 
   return (
