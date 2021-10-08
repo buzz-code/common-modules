@@ -43,6 +43,9 @@ export const applyFilters = (query, filters) => {
                 case 'like':
                     query.where(filter.field, 'like', '%' + filter.value + '%');
                     break;
+                case 'eq':
+                    query.where(filter.field, '=', filter.value);
+                    break;
                 case 'in':
                     query.where(filter.field, 'in', filter.value);
                     break;
