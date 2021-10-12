@@ -9,6 +9,7 @@ import {
   CLEAR_ENTITY_LIST,
   CUSTOM_HTTP_REQUEST,
   DOWNLOAD,
+  CLEAR_STATE,
 } from '../constants/actionType';
 
 export const loading = (entity, error) => {
@@ -91,3 +92,12 @@ export const download = (entity, method, url) => {
     url: url,
   };
 };
+
+export const clearState = (entity, method, url) => {
+  return {
+    type: CLEAR_STATE,
+    entity: entity,
+    method: method,
+    url: url,
+  }
+}

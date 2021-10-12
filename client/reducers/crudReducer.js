@@ -9,6 +9,7 @@ import {
   CLEAR_ENTITY_LIST,
   CUSTOM_HTTP_REQUEST,
   DOWNLOAD,
+  CLEAR_STATE,
 } from '../constants/actionType';
 
 let initialState = {
@@ -110,6 +111,15 @@ export default function (entity) {
           ...state,
           error: null,
           isLoading: false,
+        };
+
+      case CLEAR_STATE:
+        return {
+          ...state,
+          [action.method]: {
+            ...state[action.method],
+            [action.url]: null,
+          },
         };
 
       default:

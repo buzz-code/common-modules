@@ -131,3 +131,9 @@ export const download = (entity, method, url, data, id) => {
       });
   };
 };
+
+export const clearState = (entity, method, url) => {
+  return (dispatch) => {
+    dispatch(commonAction.clearState(entity, method, url));
+  }
+}
