@@ -111,6 +111,17 @@ export class CallBase {
                 res.push(options.lenght_max || "");
                 break;
 
+            case "voice":
+                res.push(options.use_previous_if_exists ? "yes" : "no");
+                res.push("voice");
+                res.push(options.lang || "");
+                res.push(options.allow_typing ? "yes" : "no");
+                res.push(options.max_typing_digits || "");
+                res.push(options.record_engine ? "record" : "");
+                res.push(options.lenght_min || "");
+                res.push(options.lenght_max || "");
+                break;
+
             default:
                 break;
         }
