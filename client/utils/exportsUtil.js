@@ -1,4 +1,5 @@
 import { CsvBuilder } from 'filefy';
+import moment from 'moment';
 
 import * as httpService from '../services/httpService';
 
@@ -24,6 +25,8 @@ const getFieldValue = (rowData, columnDef) => {
   let value = rowData[columnDef.field] ?? ''
   if (columnDef.list) {
     value = columnDef.list?.find((item) => item[columnDef.idField] == value)?.name;
+  } else if (columnDef.type == 'date') {
+    value = moment(value).format('DD.MM.YYYY');
   }
 
   return value;
