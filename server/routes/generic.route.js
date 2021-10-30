@@ -4,10 +4,16 @@ import validate from '../config/joi.validate';
 import schema from '../utils/validator';
 import { exportPdf } from '../utils/template';
 
-export default (ctrl, callback) => {
+export default (ctrl, callback, skipAuthentication) => {
     const router = express.Router();
 
-    router.use(isAuthenticated);
+    router.use((req, res, next) => {
+        if (!skipAuthentication || !skipAuthentication(req)) {
+            isAuthenticated(req, res, next);
+        } else {
+            next();
+        }
+    });
 
     if (callback) {
         callback(router);
