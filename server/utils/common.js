@@ -8,7 +8,7 @@ export function getListFromTable(table, user_id, idField = 'id') {
 export function getDataToSave(data, columns) {
     return data.map((item) => {
         const value = {};
-        columns.forEach((c, i) => (value[c] = item[i]));
+        columns.forEach((c, i) => c && (value[c] = item[i]));
         return value;
     });
 }
