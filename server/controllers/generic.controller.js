@@ -186,10 +186,10 @@ export default (model, fromClientToServer, fromServerToClient) => ({
         itemsToSave.forEach(item => item.user_id = req.currentUser.id);
         model.collection(itemsToSave)
             .invokeThen("save", null, { method: "insert" })
-            .then(() => res.json({
+            .then(() => res.json && res.json({
                 data: { variant: 'success', message: 'הרשומות נוספו בהצלחה.' }
             }))
-            .catch(err => res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+            .catch(err => res.status && res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
                 data: { variant: 'error', message: err.message }
             }));
     }
