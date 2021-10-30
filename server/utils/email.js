@@ -16,9 +16,7 @@ export async function getAndParseExcelEmail(req, res) {
         /* Convert array of arrays */
         const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
         /* Update state */
-        console.log(data);
-
-        return [];
+        return data.slice(1);
     } else {
         console.log('no data was received');
         return [];
