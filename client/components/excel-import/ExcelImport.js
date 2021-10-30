@@ -10,6 +10,7 @@ import * as crudAction from '../../actions/crudAction';
 import { useDispatch, useSelector } from 'react-redux';
 import DragDropFile from './DragDropFiles';
 import OutTable from './PreviewTable';
+import { getDataToSave } from '../../../server/utils/common';
 
 const ExcelImport = ({ title, supportedEntities }) => {
   const dispatch = useDispatch();
@@ -42,11 +43,7 @@ const ExcelImport = ({ title, supportedEntities }) => {
   };
 
   const uploadDataToServer = () => {
-    const dataToSave = data.map((item) => {
-      const value = {};
-      selectedEntity.columns.forEach((c, i) => (value[c] = item[i]));
-      return value;
-    });
+    const dataToSave = getDataToSave(data, selectedEntity.columns);
     dispatch(
       crudAction.customHttpRequest(selectedEntity.value, 'POST', 'upload-multiple', dataToSave)
     );
