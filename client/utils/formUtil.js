@@ -20,3 +20,18 @@ export const getPropsForAutoComplete = (field, list, idField = 'id') => ({
     />
   ),
 });
+
+export const getColumnsForPivot = (data) => {
+  const allProps = Object.fromEntries(data.flatMap(item => Object.entries(item)));
+  const columns = [];
+  for (const key in allProps) {
+    if (key.endsWith('_title')) {
+      columns.push({
+        field: key.replace('_title', ''),
+        title: allProps[key],
+        sorting: false,
+      })
+    }
+  }
+  return columns;
+}
