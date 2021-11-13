@@ -66,7 +66,7 @@ const Table = ({
     dispatch(crudAction.destroyItem(entity, rowData.id))
   );
 
-  const getData = (query) => {
+  const getData = useCallback((query) => {
     return dispatch(crudAction.fetchAll(entity, query, conditions))
       .then((res) => res.data)
       .then((result) => {
@@ -76,7 +76,7 @@ const Table = ({
           totalCount: result.total,
         };
       });
-  };
+  }, [dispatch, entity, conditions]);
 
   const handleFilterChange = (conditions) => {
     setConditions(conditions);
