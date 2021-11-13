@@ -127,11 +127,11 @@ const Table = ({
           exportMenu: [
             {
               label: 'ייצא לקובץ CSV',
-              exportFunc: (cols, datas) => exportCsv(cols, entity, conditions, tableTitle, getExportColumns),
+              exportFunc: (cols, datas) => exportCsv(cols, entity, conditions, tableTitle, tableRef.current?.state?.query, getExportColumns),
             },
             {
               label: 'ייצא לקובץ PDF',
-              exportFunc: (cols, datas) => exportPdf(cols, entity, conditions, tableTitle, getExportColumns),
+              exportFunc: (cols, datas) => exportPdf(cols, entity, conditions, tableTitle, tableRef.current?.state?.query, getExportColumns),
             },
           ],
         }}

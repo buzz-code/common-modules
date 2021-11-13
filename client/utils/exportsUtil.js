@@ -3,9 +3,9 @@ import moment from 'moment';
 
 import * as httpService from '../services/httpService';
 
-const getExportData = (entity, filters, columns, columnsFunc) => {
+const getExportData = (entity, filters, columns, { orderBy, orderDirection }, columnsFunc) => {
   return httpService
-    .fetchEntity(entity, { page: 0, pageSize: 10000 }, filters)
+    .fetchEntity(entity, { page: 0, pageSize: 10000, orderBy, orderDirection }, filters)
     .then((response) => response.data)
     .then((response) => response.data)
     .then((data) => {
@@ -35,8 +35,8 @@ const getFieldValue = (rowData, columnDef) => {
   return value;
 };
 
-export const exportCsv = (columns, entity, filters, title, columnsFunc) => {
-  getExportData(entity, filters, columns, columnsFunc).then(({ data, columns }) => {
+export const exportCsv = (columns, entity, filters, title, query = {}, columnsFunc) => {
+  getExportData(entity, filters, columns, query, columnsFunc).then(({ data, columns }) => {
     let fileName = title || 'data';
 
     const builder = new CsvBuilder(fileName + '.csv');
@@ -44,8 +44,8 @@ export const exportCsv = (columns, entity, filters, title, columnsFunc) => {
   });
 };
 
-export const exportPdf = (columns, entity, filters, title, columnsFunc) => {
-  getExportData(entity, filters, columns, columnsFunc).then(({ data, columns }) => {
+export const exportPdf = (columns, entity, filters, title, query = {}, columnsFunc) => {
+  getExportData(entity, filters, columns, query, columnsFunc).then(({ data, columns }) => {
     let fileName = title || 'data';
 
     httpService
