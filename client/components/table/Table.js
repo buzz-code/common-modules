@@ -92,8 +92,10 @@ const Table = ({
     if (isFirstTimeRef.current) {
       isFirstTimeRef.current = false;
     } else {
-      tableRef.current && tableRef.current.onQueryChange();
-      onConditionUpdate && onConditionUpdate(conditions);
+      if (!isLoading) {
+        tableRef.current && tableRef.current.onQueryChange();
+        onConditionUpdate && onConditionUpdate(conditions);
+      }
     }
   }, [conditions]);
 
