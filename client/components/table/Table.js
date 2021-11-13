@@ -29,6 +29,7 @@ const Table = ({
   disableUpdate,
   disableDelete,
   onConditionUpdate,
+  getExportColumns,
 }) => {
   const dispatch = useDispatch();
   const { isLoading, data, error } = useSelector((state) => state[entity]);
@@ -126,11 +127,11 @@ const Table = ({
           exportMenu: [
             {
               label: 'ייצא לקובץ CSV',
-              exportFunc: (cols, datas) => exportCsv(cols, entity, conditions, tableTitle),
+              exportFunc: (cols, datas) => exportCsv(cols, entity, conditions, tableTitle, getExportColumns),
             },
             {
               label: 'ייצא לקובץ PDF',
-              exportFunc: (cols, datas) => exportPdf(cols, entity, conditions, tableTitle),
+              exportFunc: (cols, datas) => exportPdf(cols, entity, conditions, tableTitle, getExportColumns),
             },
           ],
         }}
