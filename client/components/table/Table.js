@@ -41,7 +41,7 @@ const Table = ({
   const actions = useMemo(() => getActions(tableRef), [tableRef]);
   const isFirstTimeRef = createRef(true);
 
-  const getSaveItem = (rowData) => {
+  const getSaveItem = useCallback((rowData) => {
     let dataToSave = {
       ...rowData,
       tableData: undefined,
@@ -59,12 +59,10 @@ const Table = ({
       }
     }
     return dispatch(crudAction.submitForm(entity, dataToSave, dataToSave.id));
-  };
-  const onRowAdd = useCallback(getSaveItem);
-  const onRowUpdate = useCallback(getSaveItem);
-  const onRowDelete = useCallback((rowData) =>
-    dispatch(crudAction.destroyItem(entity, rowData.id))
-  );
+  }, [manipulateDataToSave, validateRow, setValidationError, dispatch, entity]);
+  const onRowAdd = useCallback(getSaveItem, [getSaveItem]);
+  const onRowUpdate = useCallback(getSaveItem, [getSaveItem]);
+  const onRowDelete = useCallback((rowData) => dispatch(crudAction.destroyItem(entity, rowData.id)), [dispatch, entity]);
 
   const getData = useCallback((query) => {
     return dispatch(crudAction.fetchAll(entity, query, conditions))
@@ -78,9 +76,9 @@ const Table = ({
       });
   }, [dispatch, entity, conditions]);
 
-  const handleFilterChange = (conditions) => {
+  const handleFilterChange = useCallback((conditions) => {
     setConditions(conditions);
-  };
+  }, [conditions]);
 
   useEffect(() => {
     if (Object.keys(conditions).length) {
