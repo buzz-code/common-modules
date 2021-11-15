@@ -34,7 +34,6 @@ const Table = ({
   const dispatch = useDispatch();
   const { isLoading, data, error } = useSelector((state) => state[entity]);
   const [validationError, setValidationError] = useState(null);
-  const [currentPageSize, setCurrentPageSize] = useState(5);
   const [conditions, setConditions] = useState({});
   const tableRef = createRef();
   const tableTitle = useMemo(() => 'רשימת ' + title, [title]);
@@ -115,7 +114,6 @@ const Table = ({
         actions={[...actions, ...additionalActions]}
         data={getData}
         isLoading={isLoading}
-        onChangeRowsPerPage={setCurrentPageSize}
         editable={{
           onRowAdd: disableAdd ? null : onRowAdd,
           onRowUpdate: disableUpdate ? null : onRowUpdate,
@@ -123,7 +121,6 @@ const Table = ({
         }}
         options={{
           ...materialTableOptions,
-          pageSize: currentPageSize,
           exportMenu: [
             {
               label: 'ייצא לקובץ CSV',
