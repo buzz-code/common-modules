@@ -10,7 +10,7 @@ export const getPropsForAutoComplete = (field, list, idField = 'id') => ({
     <Autocomplete
       size="small"
       options={list || []}
-      getOptionLabel={(option) => option.name || list?.find((item) => item[idField] == props.value).name}
+      getOptionLabel={(option) => option?.name || list?.find((item) => item[idField] == props.value)?.name}
       getOptionSelected={(option, value) => option[idField] == value}
       value={props.value}
       renderInput={(params) => {
