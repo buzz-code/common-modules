@@ -21,15 +21,24 @@ export const getPropsForAutoComplete = (field, list, idField = 'id') => ({
   ),
 });
 
-export const getColumnsForPivot = (data) => {
+export const getColumnsForPivot = (data, isHideZeroValues = true) => {
   const allProps = Object.fromEntries(data.flatMap(item => Object.entries(item)));
   const columns = [];
   for (const key in allProps) {
     if (key.endsWith('_title')) {
+      const field = key.replace('_title', '');
+
+      let render = undefined;
+      if (isHideZeroValues) {
+        render = (rowData) => <span>{rowData[field] || ''}</span>;
+      }
+
       columns.push({
-        field: key.replace('_title', ''),
+        field,
         title: allProps[key],
         sorting: false,
+        render,
+        isHideZeroValues,
       })
     }
   }

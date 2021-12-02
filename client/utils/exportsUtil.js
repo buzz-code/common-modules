@@ -32,6 +32,10 @@ const getFieldValue = (rowData, columnDef) => {
     value = moment(value).format('DD.MM.YYYY');
   }
 
+  if (columnDef.isHideZeroValues && value == 0) {
+    return '';
+  }
+
   return value;
 };
 
