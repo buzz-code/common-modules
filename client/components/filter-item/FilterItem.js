@@ -3,17 +3,20 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const FilterItem = ({ item, index, onChange, classes }) => {
-  const handleChange = useCallback((value) => {
+  const handleChange = useCallback((value, name) => {
     const filter = {
       field: item.field,
       value: value,
       operator: item.operator,
+      label: item.label,
+      type: item.type,
+      name: name,
     };
     onChange(filter, index);
   }, [item, index, onChange]);
 
   const handleTextFieldChange = e => handleChange(e.target.value);
-  const handleAutocompleteChange = (e, val) => handleChange((val || {})[item.idField || 'id']);
+  const handleAutocompleteChange = (e, val) => handleChange((val || {})[item.idField || 'id'], val && val.name);
 
   return item.type === 'text' || item.type === 'date' ? (
     <TextField
