@@ -42,9 +42,34 @@ const getFieldValue = (rowData, columnDef) => {
   return value;
 };
 
+const getFileName = (title, filters) => {
+  const filterTitle = Object.values(filters).map(filter => {
+    if (filter.operator === 'like') {
+      return filter.label + ' מכיל ' + filter.value;
+    } else if (filter.operator === 'date-eq') {
+      return filter.label + ' = ' + moment(filter.value, 'YYYY-MM-DD').format('DD-MM-YYYY');
+    } else if (filter.operator === 'date-before') {
+      return filter.label + ' ' + moment(filter.value, 'YYYY-MM-DD').format('DD-MM-YYYY');
+    } else if (filter.operator === 'date-after') {
+      return filter.label + ' ' + moment(filter.value, 'YYYY-MM-DD').format('DD-MM-YYYY');
+    } else if (filter.operator === 'in') {
+      return 'TODO';
+    } else if (filter.operator === 'eq') {
+      if (filter.type === 'list') {
+        return filter.label + ' = ' + filter.name;
+      } else {
+        return 'TODO';
+      }
+    }
+  })
+    .join(', ');
+
+  return (title ?? 'data') + (filterTitle ? ('- ' + filterTitle) : '');
+}
+
 export const exportCsv = (columns, entity, filters, title, query = {}, columnsFunc) => {
   getExportData(entity, filters, columns, query, columnsFunc).then(({ data, columns }) => {
-    let fileName = title || 'data';
+    let fileName = getFileName(title, filters);
 
     const builder = new CsvBuilder(fileName + '.csv');
     builder.setDelimeter(',').setColumns(columns).addRows(data).exportFile();
@@ -53,7 +78,7 @@ export const exportCsv = (columns, entity, filters, title, query = {}, columnsFu
 
 export const exportPdf = (columns, entity, filters, title, query = {}, columnsFunc) => {
   getExportData(entity, filters, columns, query, columnsFunc).then(({ data, columns }) => {
-    let fileName = title || 'data';
+    let fileName = getFileName(title, filters);
 
     httpService
       .downloadFile(entity, 'POST', 'export-pdf', { data, columns, fileName });
