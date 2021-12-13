@@ -1,5 +1,6 @@
 import { CsvBuilder } from 'filefy';
 import moment from 'moment';
+import { getJewishDate, formatJewishDateHebrew } from 'jewish-dates-core';
 
 import * as httpService from '../services/httpService';
 
@@ -30,6 +31,8 @@ const getFieldValue = (rowData, columnDef) => {
     value = columnDef.list?.find((item) => item[columnDef.idField] == value)?.name;
   } else if (columnDef.type == 'date') {
     value = moment(value).format('DD.MM.YYYY');
+  } else if (columnDef.isHebrewDate) {
+    value = value && formatJewishDateHebrew(getJewishDate(new Date(value)));
   }
 
   if (columnDef.isHideZeroValues && value == 0) {
