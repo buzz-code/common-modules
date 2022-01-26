@@ -1,6 +1,7 @@
 import ejs from "ejs";
 import pdf from "html-pdf";
 import path from 'path';
+import moment from 'moment';
 
 export function renderEjsTemplate(template, data) {
     return new Promise((resolve, reject) => {
@@ -51,9 +52,18 @@ export function downloadFileFromStream(fileStream, filename, ext, res) {
     fileStream.pipe(res);
 }
 
+function getTemplateData(data, columns, filename) {
+    return {
+        data,
+        columns,
+        title: filename,
+        printedAt: moment().format('DD/MM/yyyy hh:mm:ss'),
+    };
+}
+
 async function getPdfExport({ data, columns, fileName: filename }) {
     const templatePath = path.join(__filename, '..', '..', '..', 'templates', 'export.ejs');
-    const templateData = { data, columns, title: filename };
+    const templateData = getTemplateData(data, columns, filename);
     const html = await renderEjsTemplate(templatePath, templateData);
     const fileStream = await getPdfStreamFromHtml(html);
     return { fileStream, filename };
