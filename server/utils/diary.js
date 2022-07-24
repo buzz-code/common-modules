@@ -13,3 +13,7 @@ export function formatJewishDates(groupData) {
         groupData.dates[date] = formatJewishDateHebrew(getJewishDate(new Date(groupData.dates[date])));
     }
 }
+
+export function getLessonsByLessonCount(lesson_count) {
+    return [...Array(lesson_count)].map((_, index) => `lesson_date_${index + 1}`);
+}
