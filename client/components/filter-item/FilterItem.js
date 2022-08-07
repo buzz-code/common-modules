@@ -4,18 +4,14 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import { getCondition, getOptionLabelFunc } from '../../utils/queryUtil';
 
-const FilterItem = ({ filterDef, index, onChange, classes }) => {
-  const [value, setValue] = useState(filterDef.defaultValue ?? null);
+const FilterItem = ({ filterDef, index, value, onChange, classes }) => {
   const handleChange = useCallback((value) => {
     const condition = getCondition(filterDef, value);
     onChange(condition, index);
-    setValue(value);
-  }, [filterDef, index, onChange, setValue]);
+  }, [filterDef, index, onChange]);
 
   const handleTextFieldChange = e => handleChange(e.target.value);
   const handleAutocompleteChange = (e, val) => handleChange((val || {})[filterDef.idField || 'id']);
-
-  console.log(value);
 
   return filterDef.type === 'text' || filterDef.type === 'date' ? (
     <TextField

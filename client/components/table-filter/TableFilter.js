@@ -45,6 +45,7 @@ const TableFilter = ({ filters, onFilterChange }) => {
               filterDef={item}
               index={index}
               key={index}
+              value={conditions[index]?.value ?? item.defaultValue ?? null}
               onChange={onChange}
               classes={classes}
             />
