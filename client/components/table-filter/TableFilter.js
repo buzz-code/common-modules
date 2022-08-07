@@ -42,7 +42,7 @@ const TableFilter = ({ filters, onFilterChange }) => {
         <div>
           {filters.map((item, index) => (
             <FilterItem
-              item={item}
+              filterDef={item}
               index={index}
               key={index}
               onChange={onChange}
