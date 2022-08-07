@@ -3,6 +3,7 @@ import moment from 'moment';
 import { getJewishDate, formatJewishDateHebrew } from 'jewish-dates-core';
 
 import * as httpService from '../services/httpService';
+import { getOptionLabelFunc } from './queryUtil';
 
 const getExportData = (entity, filters, columns, { orderBy, orderDirection }, columnsFunc) => {
   return httpService
@@ -28,7 +29,8 @@ const getExportData = (entity, filters, columns, { orderBy, orderDirection }, co
 const getFieldValue = (rowData, columnDef) => {
   let value = rowData[columnDef.field] ?? ''
   if (columnDef.list) {
-    value = columnDef.list?.find((item) => item[columnDef.idField] == value)?.name;
+    const getOptionLabel = getOptionLabelFunc(columnDef.list, columnDef.idField);
+    value = getOptionLabel(value);
   } else if (columnDef.type == 'date') {
     value = value && moment(value).format('DD.MM.YYYY');
   } else if (columnDef.isHebrewDate) {

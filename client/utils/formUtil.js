@@ -2,6 +2,8 @@ import React from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
+import { getOptionLabelFunc } from './queryUtil';
+
 export const getPropsForAutoComplete = (field, list, idField = 'id') => ({
   list,
   idField,
@@ -10,7 +12,7 @@ export const getPropsForAutoComplete = (field, list, idField = 'id') => ({
     <Autocomplete
       size="small"
       options={list || []}
-      getOptionLabel={(option) => option?.name || list?.find((item) => item[idField] == props.value)?.name}
+      getOptionLabel={getOptionLabelFunc(list, idField)}
       getOptionSelected={(option, value) => option[idField] == value}
       value={props.value}
       renderInput={(params) => {

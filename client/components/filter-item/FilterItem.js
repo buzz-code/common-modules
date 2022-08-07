@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-import { getCondition } from '../../utils/queryUtil';
+import { getCondition, getOptionLabelFunc } from '../../utils/queryUtil';
 
 const FilterItem = ({ filterDef, index, onChange, classes }) => {
   const [value, setValue] = useState(filterDef.defaultValue ?? null);
@@ -34,7 +34,7 @@ const FilterItem = ({ filterDef, index, onChange, classes }) => {
       value={value}
       onChange={handleAutocompleteChange}
       options={filterDef.list || []}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={getOptionLabelFunc(filterDef.list, filterDef.idField)}
       renderInput={(params) => <TextField {...params}
         label={filterDef.label}
         InputLabelProps={{
