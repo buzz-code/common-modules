@@ -1,12 +1,13 @@
 import React, { createRef, useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import MaterialTable from '@material-table/core';
 
 import CustomizedSnackbar from '../common/snakebar/CustomizedSnackbar';
+import TableFilter from '../table-filter/TableFilter';
 import * as crudAction from '../../actions/crudAction';
-import { useDispatch, useSelector } from 'react-redux';
 import { materialTableOptions, materialTableLocalizations } from '../../config/config';
 import { exportCsv, exportPdf } from '../../utils/exportsUtil';
-import TableFilter from '../table-filter/TableFilter';
+import { getDefaultConditionsFromFilters } from '../../utils/queryUtil';
 
 const getActions = (tableRef) => [
   {
@@ -80,10 +81,8 @@ const Table = ({
   }, [conditions]);
 
   useEffect(() => {
-    if (Object.keys(conditions).length) {
-      setConditions({});
-    }
-  }, [entity]);
+    setConditions(getDefaultConditionsFromFilters(filters));
+  }, [filters]);
 
   useEffect(() => {
     if (isFirstTimeRef.current) {
