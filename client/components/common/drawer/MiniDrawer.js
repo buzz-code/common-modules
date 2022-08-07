@@ -47,7 +47,7 @@ const MiniDrawer = ({ navDrawerOpen, handleToggleDrawer }) => {
   const location = useLocation();
 
   const getNavLinkItem = (url, Icon, text) => (
-    <NavLink style={{ textDecoration: 'none', color: 'initial' }} to={url}>
+    <NavLink key={text} style={{ textDecoration: 'none', color: 'initial' }} to={url}>
       <ListItem button selected={location.pathname === url}>
         <ListItemIcon>
           <Icon />
