@@ -9,7 +9,7 @@ export function getCondition(filterDef, value) {
 }
 
 export function getOptionLabelFunc(list, idField = 'id') {
-    return (option) => option?.name || list?.find((item) => item[idField] == option)?.name;
+    return (option) => option?.name ?? list?.find((item) => item[idField] == option)?.name ?? '';
 }
 
 export function getDefaultConditionsFromFilters(filters) {
