@@ -2,17 +2,13 @@ import React, { useCallback, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
+import { getCondition } from '../../utils/queryUtil';
+
 const FilterItem = ({ filterDef, index, onChange, classes }) => {
   const [value, setValue] = useState(filterDef.defaultValue ?? null);
   const handleChange = useCallback((value) => {
-    const filter = {
-      field: filterDef.field,
-      value: value,
-      operator: filterDef.operator,
-      label: filterDef.label,
-      type: filterDef.type,
-    };
-    onChange(filter, index);
+    const condition = getCondition(filterDef, value);
+    onChange(condition, index);
     setValue(value);
   }, [filterDef, index, onChange, setValue]);
 
