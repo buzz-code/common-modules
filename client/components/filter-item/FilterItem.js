@@ -4,21 +4,20 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const FilterItem = ({ filterDef, index, onChange, classes }) => {
   const [value, setValue] = useState(filterDef.defaultValue ?? null);
-  const handleChange = useCallback((value, name) => {
+  const handleChange = useCallback((value) => {
     const filter = {
       field: filterDef.field,
       value: value,
       operator: filterDef.operator,
       label: filterDef.label,
       type: filterDef.type,
-      name: name,
     };
     onChange(filter, index);
     setValue(value);
   }, [filterDef, index, onChange, setValue]);
 
   const handleTextFieldChange = e => handleChange(e.target.value);
-  const handleAutocompleteChange = (e, val) => handleChange((val || {})[filterDef.idField || 'id'], val && val.name);
+  const handleAutocompleteChange = (e, val) => handleChange((val || {})[filterDef.idField || 'id']);
 
   console.log(value);
 
