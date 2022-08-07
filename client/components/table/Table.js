@@ -1,4 +1,4 @@
-import React, { createRef, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useRef, useCallback, useEffect, useMemo, useState, createRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MaterialTable from '@material-table/core';
 
@@ -39,7 +39,7 @@ const Table = ({
   const tableRef = createRef();
   const tableTitle = useMemo(() => 'רשימת ' + title, [title]);
   const actions = useMemo(() => getActions(tableRef), [tableRef]);
-  const isFirstTimeRef = createRef(true);
+  const isFirstTimeRef = useRef(true);
 
   const getSaveItem = useCallback((rowData) => {
     let dataToSave = {
@@ -74,7 +74,7 @@ const Table = ({
           totalCount: result.total,
         };
       });
-  }, [dispatch, entity, conditions]);
+  }, [dispatch, entity, JSON.stringify(conditions)]);
 
   const handleFilterChange = useCallback((conditions) => {
     setConditions(conditions);
@@ -93,7 +93,7 @@ const Table = ({
         onConditionUpdate && onConditionUpdate(conditions);
       }
     }
-  }, [conditions]);
+  }, [JSON.stringify(conditions)]);
 
   return (
     <div>
