@@ -1,10 +1,13 @@
 export function getCondition(filterDef, value) {
+    const getOptionLabel = getOptionLabelFunc(filterDef.list, filterDef.idField);
+    const name = getOptionLabel(value);
     return {
         field: filterDef.field,
         operator: filterDef.operator,
         label: filterDef.label,
         type: filterDef.type,
         value: value,
+        name: name,
     };
 }
 

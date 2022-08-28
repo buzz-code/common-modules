@@ -45,25 +45,27 @@ const getFieldValue = (rowData, columnDef) => {
 };
 
 const getFileName = (title, filters) => {
-  const filterTitle = Object.values(filters).map(filter => {
-    if (filter.operator === 'like') {
-      return filter.label + ' מכיל ' + filter.value;
-    } else if (filter.operator === 'date-eq') {
-      return filter.label + ' = ' + moment(filter.value, 'YYYY-MM-DD').format('DD-MM-YYYY');
-    } else if (filter.operator === 'date-before') {
-      return filter.label + ' ' + moment(filter.value, 'YYYY-MM-DD').format('DD-MM-YYYY');
-    } else if (filter.operator === 'date-after') {
-      return filter.label + ' ' + moment(filter.value, 'YYYY-MM-DD').format('DD-MM-YYYY');
-    } else if (filter.operator === 'in') {
-      return 'TODO';
-    } else if (filter.operator === 'eq') {
-      if (filter.type === 'list') {
-        return filter.label + ' = ' + filter.name;
-      } else {
+  const filterTitle = Object.values(filters)
+    .filter(filter => filter.value)
+    .map(filter => {
+      if (filter.operator === 'like') {
+        return filter.label + ' מכיל ' + filter.value;
+      } else if (filter.operator === 'date-eq') {
+        return filter.label + ' = ' + moment(filter.value, 'YYYY-MM-DD').format('DD-MM-YYYY');
+      } else if (filter.operator === 'date-before') {
+        return filter.label + ' ' + moment(filter.value, 'YYYY-MM-DD').format('DD-MM-YYYY');
+      } else if (filter.operator === 'date-after') {
+        return filter.label + ' ' + moment(filter.value, 'YYYY-MM-DD').format('DD-MM-YYYY');
+      } else if (filter.operator === 'in') {
         return 'TODO';
+      } else if (filter.operator === 'eq') {
+        if (filter.type === 'list') {
+          return filter.label + ' = ' + filter.name;
+        } else {
+          return 'TODO';
+        }
       }
-    }
-  })
+    })
     .join(', ');
 
   return (title ?? 'data') + (filterTitle ? ('- ' + filterTitle) : '');
