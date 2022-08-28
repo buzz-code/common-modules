@@ -11,7 +11,7 @@ const FilterItem = ({ filterDef, index, value, onChange, classes }) => {
   }, [filterDef, index, onChange]);
 
   const handleTextFieldChange = e => handleChange(e.target.value);
-  const handleAutocompleteChange = (e, val) => handleChange((val || {})[filterDef.idField || 'id']);
+  const handleAutocompleteChange = (e, val) => handleChange((val || {})[filterDef.idField || 'id'] ?? '');
 
   return filterDef.type === 'text' || filterDef.type === 'date' ? (
     <TextField
