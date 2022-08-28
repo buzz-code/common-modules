@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+
 import FilterItem from '../filter-item/FilterItem';
+import { getDefaultConditionsFromFilters } from '../../utils/queryUtil';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -33,7 +35,7 @@ const TableFilter = ({ filters, onFilterChange }) => {
   };
 
   useEffect(() => {
-    setConditions({});
+    setConditions(getDefaultConditionsFromFilters(filters));
   }, [filters]);
 
   return (
