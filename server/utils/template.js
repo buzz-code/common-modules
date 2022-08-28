@@ -2,6 +2,10 @@ import ejs from "ejs";
 import pdf from "html-pdf";
 import path from 'path';
 import moment from 'moment';
+import fs from 'fs';
+import { Readable } from 'stream';
+import XlsxTemplate from 'xlsx-template';
+
 
 export function renderEjsTemplate(template, data) {
     return new Promise((resolve, reject) => {
@@ -75,4 +79,18 @@ export function exportPdf(req, res) {
         .catch(err => res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
             message: err.message
         }));
+}
+
+export async function renderExcelTemplate(template, data) {
+    const templateStr = await fs.promises.readFile(template);
+    var template = new XlsxTemplate(templateStr);
+    var sheetNumber = 1;
+    template.substitute(sheetNumber, data);
+    var buffer = template.generate({ type: 'nodebuffer' });
+    return buffer;
+}
+
+export async function renderExcelTemplateToStream(template, data) {
+    const buffer = await renderExcelTemplate(template, data);
+    return Readable.from(buffer);
 }
