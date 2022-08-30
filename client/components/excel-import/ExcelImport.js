@@ -29,12 +29,12 @@ const ExcelImport = ({ title, supportedEntities }) => {
     reader.onload = (e) => {
       /* Parse data */
       const bstr = e.target.result;
-      const wb = XLSX.read(bstr, { type: rABS ? 'binary' : 'array' });
+      const wb = XLSX.read(bstr, { type: rABS ? 'binary' : 'array', cellText: false, cellDates: true });
       /* Get first worksheet */
       const wsname = wb.SheetNames[0];
       const ws = wb.Sheets[wsname];
       /* Convert array of arrays */
-      const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+      const data = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
       /* Update state */
       setData(data.slice(1));
     };
