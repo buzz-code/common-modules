@@ -16,7 +16,7 @@ export default (ctrl, callback, skipAuthentication) => {
     });
 
     if (callback) {
-        callback(router);
+        callback(router, ctrl);
     }
 
     router.route('/')
