@@ -5,6 +5,7 @@ export async function sendEmail(toAddress, fromAddress, subject, text, html) {
     const msg = {
         to: toAddress,
         from: fromAddress,
+        replyTo: 'hadasa.schechter@gmail.com',
         subject: subject,
         text: text,
         html: html,
