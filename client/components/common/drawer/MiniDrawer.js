@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -8,7 +8,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { NavLink, useLocation } from 'react-router-dom';
 
 import routeConfig from '../../../../../client/constants/route-config';
@@ -46,7 +49,7 @@ const MiniDrawer = ({ navDrawerOpen, handleToggleDrawer }) => {
   const classes = useStyles();
   const location = useLocation();
 
-  const getNavLinkItem = (url, Icon, text) => (
+  const getNavLinkItem = ({ path: url, icon: Icon, title: text, hideFromDrawer }) => !hideFromDrawer && (
     <NavLink key={text} style={{ textDecoration: 'none', color: 'initial' }} to={url}>
       <ListItem button selected={location.pathname === url}>
         <ListItemIcon>
@@ -56,6 +59,25 @@ const MiniDrawer = ({ navDrawerOpen, handleToggleDrawer }) => {
       </ListItem>
     </NavLink>
   );
+
+  const getNavLinkGroup = ({ icon: Icon, title: text, subItems }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <div key={text}>
+        <ListItem button onClick={() => setIsOpen(isOpen => !isOpen)}>
+          <ListItemIcon>
+            <Icon />
+          </ListItemIcon>
+          <ListItemText primary={text} />
+          {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ListItem>
+        <Collapse in={isOpen}>
+          {subItems.map(getNavLinkItem)}
+        </Collapse>
+      </div>
+    );
+  }
 
   return (
     <Drawer
@@ -74,7 +96,11 @@ const MiniDrawer = ({ navDrawerOpen, handleToggleDrawer }) => {
         <>
           <Divider />
           <List>
-            <div>{item.map((item) => !item.hideFromDrawer && getNavLinkItem(item.path, item.icon, item.title))}</div>
+            <div>{item.map((item) => (
+              item.subItems
+                ? getNavLinkGroup(item)
+                : getNavLinkItem(item)
+            ))}</div>
           </List>
         </>
       ))}

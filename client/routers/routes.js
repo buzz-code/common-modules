@@ -19,6 +19,7 @@ const Router = () => (
 
       {routeConfig
         .flatMap((item) => item)
+        .flatMap((item) => item.subItems || item)
         .map((item) => (
           <PrivateRoute
             exact
