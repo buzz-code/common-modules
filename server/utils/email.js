@@ -11,8 +11,7 @@ export async function getAndParseExcelEmail(req, res) {
         const buffer = attachments[0].content.data;
         const wb = XLSX.read(buffer, { type: 'array' });
         /* Get first worksheet */
-        const wsname = wb.SheetNames[0];
-        const ws = wb.Sheets[wsname];
+        const ws = getWorkingSheet(wb);
         /* Convert array of arrays */
         const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
         /* Update state */
@@ -21,4 +20,12 @@ export async function getAndParseExcelEmail(req, res) {
         console.log('no data was received');
         return [];
     }
+}
+
+function getWorkingSheet(wb) {
+    if (wb.Sheets[req.body.subject]) {
+        return wb.Sheets[req.body.subject];
+    }
+    const firstSheet = wb.SheetNames[0];
+    return wb.Sheets[firstSheet];
 }
