@@ -26,7 +26,6 @@ export default (req, res, next) => {
             } else {
                 User.query({
                     where: { id: decoded.id },
-                    select: ['email', 'id']
                 }).fetch({ require: false }).then(user => {
                     if (!user) {
                         res.status(HttpStatus.NOT_FOUND).json({ error: 'No such user' });
