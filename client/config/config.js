@@ -10,6 +10,7 @@ export const materialTableOptions = {
   exportButton: { csv: true, pdf: false },
   search: false,
   filtering: false,
+  pageSize: 20,
 };
 export const materialTableLocalizations = {
   body: {
