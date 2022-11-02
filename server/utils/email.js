@@ -23,8 +23,10 @@ export async function getAndParseExcelEmail(req, res) {
 }
 
 function getWorkingSheet(req, wb) {
-    if (wb.Sheets[req.body.subject]) {
-        return wb.Sheets[req.body.subject];
+    for (const key in wb.Sheets) {
+        if (req.subject.includes(key)) {
+            return wb.Sheets[key];
+        }
     }
     const firstSheet = wb.SheetNames[0];
     return wb.Sheets[firstSheet];
