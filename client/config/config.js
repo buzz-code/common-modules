@@ -11,6 +11,7 @@ export const materialTableOptions = {
   search: false,
   filtering: false,
   pageSize: 20,
+  addRowPosition: 'first',
 };
 export const materialTableLocalizations = {
   body: {

@@ -9,13 +9,18 @@ import { materialTableOptions, materialTableLocalizations } from '../../config/c
 import { exportCsv, exportPdf } from '../../utils/exportsUtil';
 import { getDefaultConditionsFromFilters } from '../../utils/queryUtil';
 
-const getActions = (tableRef) => [
+const getActions = (tableRef, isBulkDelete, handleBulkDelete) => [
   {
     icon: 'refresh',
     tooltip: 'רענון נתונים',
     isFreeAction: true,
     onClick: () => tableRef.current && tableRef.current.onQueryChange(),
   },
+  isBulkDelete && {
+    icon: () => 'מחק',
+    tooltip: "מחק שורות",
+    onClick: handleBulkDelete
+  }
 ];
 
 const Table = ({
@@ -31,6 +36,7 @@ const Table = ({
   disableDelete,
   onConditionUpdate,
   getExportColumns,
+  isBulkDelete,
 }) => {
   const dispatch = useDispatch();
   const { isLoading, data, error } = useSelector((state) => state[entity]);
@@ -38,7 +44,6 @@ const Table = ({
   const [conditions, setConditions] = useState({});
   const tableRef = createRef();
   const tableTitle = useMemo(() => 'רשימת ' + title, [title]);
-  const actions = useMemo(() => getActions(tableRef), [tableRef]);
   const isFirstTimeRef = useRef(true);
 
   const getSaveItem = useCallback((rowData) => {
@@ -63,6 +68,7 @@ const Table = ({
   const onRowAdd = useCallback(getSaveItem, [getSaveItem]);
   const onRowUpdate = useCallback(getSaveItem, [getSaveItem]);
   const onRowDelete = useCallback((rowData) => dispatch(crudAction.destroyItem(entity, rowData.id)), [dispatch, entity]);
+  const handleBulkDelete = useCallback((event, selectedRows) => Promise.allSettled(selectedRows.map((item) => onRowDelete(item))).then(tableRef.current.onQueryChange), [onRowDelete, tableRef]);
 
   const getData = useCallback((query) => {
     return dispatch(crudAction.fetchAll(entity, query, conditions))
@@ -79,6 +85,8 @@ const Table = ({
   const handleFilterChange = useCallback((conditions) => {
     setConditions(conditions);
   }, [conditions]);
+
+  const actions = useMemo(() => getActions(tableRef, isBulkDelete, handleBulkDelete), [tableRef, isBulkDelete, handleBulkDelete]);
 
   useEffect(() => {
     setConditions(getDefaultConditionsFromFilters(filters));
@@ -120,6 +128,7 @@ const Table = ({
         }}
         options={{
           ...materialTableOptions,
+          selection: isBulkDelete,
           exportMenu: [
             {
               label: 'ייצא לקובץ CSV',
