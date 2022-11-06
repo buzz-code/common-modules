@@ -1,5 +1,5 @@
 import * as queryHelper from '../../../server/utils/queryHelper';
-import Text from "../../../server/models/text.model";
+import {Text} from "../../../server/models";
 
 export class CallListHandler {
     static calls = {};

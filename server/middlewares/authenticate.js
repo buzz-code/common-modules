@@ -1,6 +1,6 @@
 import HttpStatus from 'http-status-codes';
 import jwt from 'jsonwebtoken';
-import User from '../../../server/models/user.model';
+import {User} from '../../../server/models';
 
 /**
  * Route authentication middleware to verify a token
