@@ -24,7 +24,7 @@ export async function getAndParseExcelEmail(req, res) {
 
 function getWorkingSheet(req, wb) {
     for (const key in wb.Sheets) {
-        if (req.subject.includes(key)) {
+        if (req.body.subject && req.body.subject.includes(key)) {
             return wb.Sheets[key];
         }
     }
