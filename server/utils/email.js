@@ -11,11 +11,14 @@ export async function getAndParseExcelEmail(req, res) {
         const buffer = attachments[0].content.data;
         const wb = XLSX.read(buffer, { type: 'array' });
         /* Get first worksheet */
-        const ws = getWorkingSheet(req, wb);
+        const { ws, sheetName } = getWorkingSheet(req, wb);
         /* Convert array of arrays */
         const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
         /* Update state */
-        return data.slice(1);
+        return {
+            data: data.slice(1),
+            sheetName,
+        };
     } else {
         console.log('no data was received');
         return [];
@@ -25,9 +28,15 @@ export async function getAndParseExcelEmail(req, res) {
 function getWorkingSheet(req, wb) {
     for (const key in wb.Sheets) {
         if (req.body.subject && req.body.subject.includes(key)) {
-            return wb.Sheets[key];
+            return {
+                ws: wb.Sheets[key],
+                sheetName: key
+            };
         }
     }
     const firstSheet = wb.SheetNames[0];
-    return wb.Sheets[firstSheet];
+    return {
+        ws: wb.Sheets[firstSheet],
+        sheetName: firstSheet
+    };
 }
