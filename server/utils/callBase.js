@@ -52,7 +52,9 @@ export class CallBase {
             throw 'no res found';
 
         const messages = Array.prototype.filter.call(arguments, item => item);
-        this.res.send(Array.prototype.join.call(messages, '&'));
+        const response = Array.prototype.join.call(messages, '&');
+        console.log('yemot response', response);
+        this.res.send(response);
         return this.waitForResponse();
     }
     waitForResponse() {
