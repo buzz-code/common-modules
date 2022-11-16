@@ -6,7 +6,7 @@ export const apiPath = isBaseUrl ? '/api/' : 'api/';
 export const API_URL = apiPath;
 export const JWT_TOKEN = 'token';
 export const materialTableOptions = {
-  actionsColumnIndex: -1,
+  actionsColumnIndex: 0,
   exportButton: { csv: true, pdf: false },
   search: false,
   filtering: false,
