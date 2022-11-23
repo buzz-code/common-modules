@@ -1,6 +1,6 @@
 import sgMail from '@sendgrid/mail';
 
-export async function sendEmail(toAddress, fromAddress, subject, text, html, replyTo = 'hadasa.schechter@gmail.com') {
+export async function sendEmail(toAddress, fromAddress, subject, text, html, replyTo = 'hadasa.schechter@gmail.com', attachments = undefined) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     const msg = {
         to: toAddress,
@@ -9,6 +9,7 @@ export async function sendEmail(toAddress, fromAddress, subject, text, html, rep
         subject: subject,
         text: text,
         html: html,
+        attachments,
     }
     try {
         await sgMail.send(msg);
