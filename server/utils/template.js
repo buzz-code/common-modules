@@ -84,8 +84,7 @@ export function exportPdf(req, res) {
 export async function renderExcelTemplate(template, data) {
     const templateStr = await fs.promises.readFile(template);
     var template = new XlsxTemplate(templateStr);
-    var sheetNumber = 1;
-    template.substitute(sheetNumber, data);
+    template.sheets.forEach((sheet) => template.substitute(sheet.name, data));
     var buffer = template.generate({ type: 'nodebuffer' });
     return buffer;
 }
