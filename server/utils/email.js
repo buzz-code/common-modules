@@ -1,7 +1,10 @@
 import XLSX from 'xlsx';
 
-export async function getAndParseExcelEmail(req, res) {
-    res.send('success');
+export async function getAndParseExcelEmail(req, res = null) {
+    if (res) {
+        res.send('success');
+    }
+
     const fromAddress = req.body.from.value;
     console.log('got email from: ', fromAddress);
     const attachments = req.body.attachments;
