@@ -24,7 +24,7 @@ export async function getAndParseExcelEmail(req, res = null) {
         };
     } else {
         console.log('no data was received');
-        return [];
+        return { data: [] };
     }
 }
 
