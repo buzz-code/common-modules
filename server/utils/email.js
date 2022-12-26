@@ -8,7 +8,7 @@ export async function getAndParseExcelEmail(req, res = null) {
 
     const attachments = getAttachments(req);
     if (attachments.length == 1) {
-        return parseAttachment(attachment, req.body.subject)
+        return parseAttachment(attachments[0], req.body.subject)
     } else {
         console.log('no data was received');
         return { data: [] };
