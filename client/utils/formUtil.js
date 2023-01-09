@@ -30,19 +30,24 @@ export const getColumnsForPivot = (data, isHideZeroValues = true) => {
     if (key.endsWith('_title')) {
       const field = key.replace('_title', '');
 
-      let render = undefined;
-      if (isHideZeroValues) {
-        render = (rowData) => <span>{rowData[field] || ''}</span>;
-      }
-
       columns.push({
         field,
         title: allProps[key],
         sorting: false,
-        render,
-        isHideZeroValues,
+        ...getPropsForHideZeroValues(field, isHideZeroValues),
       })
     }
   }
   return columns;
+}
+
+export const getPropsForHideZeroValues = (field, isHideZeroValues = true) => {
+  let render = undefined;
+  if (isHideZeroValues) {
+    render = (rowData) => <span>{rowData[field] || ''}</span>;
+  }
+
+  return {
+    render
+  };
 }
