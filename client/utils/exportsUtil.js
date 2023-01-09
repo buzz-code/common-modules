@@ -80,11 +80,11 @@ export const exportCsv = (columns, entity, filters, title, query = {}, columnsFu
   });
 };
 
-export const exportPdf = (columns, entity, filters, title, query = {}, columnsFunc) => {
+export const exportPdf = (columns, entity, filters, title, query = {}, columnsFunc, isLandscape = false) => {
   getExportData(entity, filters, columns, query, columnsFunc).then(({ data, columns }) => {
     let fileName = getFileName(title, filters);
 
     httpService
-      .downloadFile(entity, 'POST', 'export-pdf', { data, columns, fileName });
+      .downloadFile(entity, 'POST', 'export-pdf', { data, columns, fileName, isLandscape });
   });
 }

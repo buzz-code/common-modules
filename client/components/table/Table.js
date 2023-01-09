@@ -37,6 +37,7 @@ const Table = ({
   onConditionUpdate,
   getExportColumns,
   isBulkDelete,
+  isExportPdfLandscape = false,
 }) => {
   const dispatch = useDispatch();
   const { isLoading, data, error } = useSelector((state) => state[entity]);
@@ -136,7 +137,7 @@ const Table = ({
             },
             {
               label: 'ייצא לקובץ PDF',
-              exportFunc: (cols, datas) => exportPdf(cols, entity, conditions, tableTitle, tableRef.current?.state?.query, getExportColumns),
+              exportFunc: (cols, datas) => exportPdf(cols, entity, conditions, tableTitle, tableRef.current?.state?.query, getExportColumns, isExportPdfLandscape),
             },
           ],
         }}

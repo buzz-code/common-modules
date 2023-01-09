@@ -65,11 +65,12 @@ function getTemplateData(data, columns, filename) {
     };
 }
 
-async function getPdfExport({ data, columns, fileName: filename }) {
+async function getPdfExport({ data, columns, fileName: filename, isLandscape }) {
     const templatePath = path.join(__filename, '..', '..', '..', 'templates', 'export.ejs');
     const templateData = getTemplateData(data, columns, filename);
     const html = await renderEjsTemplate(templatePath, templateData);
-    const fileStream = await getPdfStreamFromHtml(html);
+    const pdfOptions = { orientation: isLandscape ? 'landscape' : 'portrait' };
+    const fileStream = await getPdfStreamFromHtml(html, pdfOptions);
     return { fileStream, filename };
 }
 
