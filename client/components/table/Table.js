@@ -87,7 +87,7 @@ const Table = ({
     setConditions(conditions);
   }, [conditions]);
 
-  const actions = useMemo(() => getActions(tableRef, isBulkDelete, handleBulkDelete), [tableRef, isBulkDelete, handleBulkDelete]);
+  const actions = useMemo(() => getActions(tableRef, isBulkDelete && !disableDelete, handleBulkDelete), [tableRef, isBulkDelete, handleBulkDelete]);
 
   useEffect(() => {
     setConditions(getDefaultConditionsFromFilters(filters));
