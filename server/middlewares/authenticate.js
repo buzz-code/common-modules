@@ -29,7 +29,7 @@ export default (req, res, next) => {
                 }).fetch({ require: false }).then(user => {
                     if (!user) {
                         res.status(HttpStatus.NOT_FOUND).json({ error: 'No such user' });
-                    } else if (user.not_paid) {
+                    } else if (user.toJSON().not_paid) {
                         res.status(HttpStatus.UNAUTHORIZED).json({ error: 'חובה לשלם' });
                     } else {
                         req.currentUser = user;
