@@ -29,7 +29,7 @@ export async function getAndParseExcelEmailV2WithResponse(req, callback) {
     const responses = [];
     for (const attachment of attachments) {
         const ans = await callback(attachment)
-            .then(() => `${attachment.attachmentName}: ${attachment.data.length} רשומות נשמרו בהצלחה`)
+            .then((res) => `${attachment.attachmentName}: ${res ?? attachment.data.length} רשומות נשמרו בהצלחה`)
             .catch(e => `${attachment.attachmentName}: שגיאה, פני לאחראית - ${e.message}`);
         console.log(ans);
         responses.push(ans);
