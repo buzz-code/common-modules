@@ -1,5 +1,6 @@
 import HttpStatus from 'http-status-codes';
 import moment from 'moment';
+import bookshelf from '../config/bookshelf';
 
 export const fetchPage = (queries, metadata, res, fromServerToClient) => {
     fetchPagePromise(queries, metadata, fromServerToClient)
@@ -42,6 +43,9 @@ export const applyFilters = (query, filters) => {
             switch (filter.operator) {
                 case 'like':
                     query.where(filter.field, 'like', '%' + filter.value + '%');
+                    break;
+                case 'like-or-null':
+                    query.where(bookshelf.knex.raw(`COALESCE(${filter.field}, ?)`, filter.value), 'like', '%' + filter.value + '%');
                     break;
                 case 'eq':
                     query.where(filter.field, '=', filter.value);

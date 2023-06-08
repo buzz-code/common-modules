@@ -48,7 +48,7 @@ const getFileName = (title, filters) => {
   const filterTitle = Object.values(filters)
     .filter(filter => filter.value)
     .map(filter => {
-      if (filter.operator === 'like') {
+      if (filter.operator === 'like' || filter.operator === 'like-or-null') {
         return filter.label + ' מכיל ' + filter.value;
       } else if (filter.operator === 'date-eq') {
         return filter.label + ' = ' + moment(filter.value, 'YYYY-MM-DD').format('DD-MM-YYYY');
