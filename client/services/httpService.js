@@ -6,7 +6,7 @@ import contentDisposition from 'content-disposition';
 
 export const fetchEntity = (
   entityName,
-  { error, orderBy, orderDirection, page, pageSize, search, totalCount },
+  { error, orderBy, orderDirection, page, pageSize, search, totalCount, ...rest },
   filters
 ) => {
   const columnOrder = orderBy?.columnOrder || orderBy?.field;
@@ -16,6 +16,7 @@ export const fetchEntity = (
     orderBy: columnOrder,
     orderDirection,
     filters,
+    ...rest,
   });
 };
 
