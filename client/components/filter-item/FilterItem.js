@@ -20,6 +20,7 @@ const FilterItem = ({ filterDef, index, value, onChange, classes }) => {
       label={filterDef.label}
       value={value}
       onChange={handleTextFieldChange}
+      disabled={filterDef.disabled}
       InputLabelProps={{
         shrink: true,
       }}
@@ -31,6 +32,7 @@ const FilterItem = ({ filterDef, index, value, onChange, classes }) => {
       onChange={handleAutocompleteChange}
       options={filterDef.list || []}
       getOptionLabel={getOptionLabelFunc(filterDef.list, filterDef.idField)}
+      disabled={filterDef.disabled}
       renderInput={(params) => <TextField {...params}
         label={filterDef.label}
         InputLabelProps={{
