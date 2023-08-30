@@ -15,8 +15,8 @@ export const fetchEntity = (
     pageSize,
     orderBy: columnOrder,
     orderDirection,
-    filters,
     ...rest,
+    filters,
   });
 };
 
