@@ -1,6 +1,7 @@
 import React from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+import { getJewishDate, formatJewishDateHebrew } from 'jewish-dates-core';
 
 import { getOptionLabelFunc } from './queryUtil';
 
@@ -49,5 +50,12 @@ export const getPropsForHideZeroValues = (field, isHideZeroValues = true) => {
 
   return {
     render
+  };
+}
+
+export const getPropsForHebrewDate = (field) => {
+  return {
+    render: (rowData) => <span>{rowData[field] ? formatJewishDateHebrew(getJewishDate(new Date(rowData[field]))) : ''}</span>,
+    isHebrewDate: true,
   };
 }
