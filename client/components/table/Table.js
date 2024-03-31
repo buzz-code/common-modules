@@ -38,6 +38,7 @@ const Table = ({
   getExportColumns,
   isBulkDelete,
   isExportPdfLandscape = false,
+  customMaterialOptions = {},
 }) => {
   const dispatch = useDispatch();
   const { isLoading, data, error } = useSelector((state) => state[entity]);
@@ -129,6 +130,7 @@ const Table = ({
         }}
         options={{
           ...materialTableOptions,
+          ...customMaterialOptions,
           selection: isBulkDelete,
           exportMenu: [
             {
