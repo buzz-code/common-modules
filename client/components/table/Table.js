@@ -130,8 +130,8 @@ const Table = ({
         }}
         options={{
           ...materialTableOptions,
-          ...customMaterialOptions,
           selection: isBulkDelete,
+          ...customMaterialOptions,
           exportMenu: [
             {
               label: 'ייצא לקובץ CSV',
