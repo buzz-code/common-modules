@@ -42,12 +42,7 @@ var config = {
     resolve: {
         alias: {
             'react-dom': '@hot-loader/react-dom'
-        },
-        fallback: {
-            "fs": false,
-            "path": false,
-            "os": false,
-        },  
+        }
     },
     devtool: "hidden-source-map",
     stats: 'verbose',
