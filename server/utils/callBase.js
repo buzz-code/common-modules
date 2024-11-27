@@ -8,6 +8,11 @@ export class CallListHandler {
             const user = await queryHelper.getUserByPhone(params.ApiDID);
             CallListHandler.calls[callId] = new callType(params, callId, user);
         }
+
+        setTimeout(() => {
+            CallListHandler.deleteCallById(callId);
+        }, 60 * 60 * 1000);
+
         return CallListHandler.calls[callId];
     }
     static deleteCallById(callId) {
