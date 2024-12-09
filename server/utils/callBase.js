@@ -56,7 +56,7 @@ export class CallBase {
         if (!this.res)
             throw 'no res found';
 
-        const messages = Array.prototype.filter.call(arguments, item => item && item != '-');
+        const messages = Array.prototype.filter.call(arguments, item => item);
         if (messages.length === 0)
             return new Promise((resolve, reject) => resolve());
 
@@ -87,7 +87,13 @@ export class CallBase {
 
     #getMessage(message) {
         if (Array.isArray(message))
-            return message.map(this.#getMessage.bind(this)).join('.');
+            return message.map(this.#getMessage.bind(this))
+                .filter(Boolean)
+                .join('.');
+
+        if (messageType.text?.startsWith('#')) {
+            return null;
+        }
 
         return `${messageType[message.type]}-${message.text}`;
     }
@@ -139,13 +145,17 @@ export class CallBase {
     }
 
     read(message, param, mode = 'tap', options = {}) {
-        return `read=${this.#getMessage(message)}=${this.#getReadDef(param, mode, options)}`;
+        const messageText = this.#getMessage(message);
+        if (!messageText) return null;
+        return `read=${messageText}=${this.#getReadDef(param, mode, options)}`;
     }
     go_to_folder(folder) {
         return `go_to_folder=/${folder}`;
     }
     id_list_message(message) {
-        return `id_list_message=${this.#getMessage(message)}.`;
+        const messageText = this.#getMessage(message);
+        if (!messageText) return null;
+        return `id_list_message=${messageText}.`;
     }
     routing_yemot(route) {
         return `routing_yemot=${folder}`;
