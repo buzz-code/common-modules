@@ -1,5 +1,5 @@
 import * as queryHelper from '../../../server/utils/queryHelper';
-import {Text} from "../../../server/models";
+import { Text } from "../../../server/models";
 
 export class CallListHandler {
     static calls = {};
@@ -56,7 +56,10 @@ export class CallBase {
         if (!this.res)
             throw 'no res found';
 
-        const messages = Array.prototype.filter.call(arguments, item => item);
+        const messages = Array.prototype.filter.call(arguments, item => item && item != '-');
+        if (messages.length === 0)
+            return new Promise((resolve, reject) => resolve());
+
         const response = Array.prototype.join.call(messages, '&');
         console.log('yemot response', response);
         this.res.send(response);
