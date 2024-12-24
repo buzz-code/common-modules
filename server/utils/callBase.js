@@ -91,6 +91,8 @@ export class CallBase {
                 .filter(Boolean)
                 .join('.');
 
+        console.log('getMessage', message.type, message.text);
+
         if (messageType.text?.startsWith('#')) {
             return null;
         }
