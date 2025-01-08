@@ -113,8 +113,9 @@ export class CallBase {
                 res.push(options.replace_char || "");
                 res.push(options.digits_allowed ? options.digits_allowed.join(".") : ""); // [1, 14]
                 res.push(options.amount_attempts || "");
-                res.push(options.read_none ? "Ok" : "no");
-                res.push(options.read_none_var || "");
+                res.push(options.read_none ? "Ok" : "");
+                res.push(options.read_none_var || "None");
+                res.push(options.change_keyboard ? 'InsertLettersTypeChangeNo' : '');
                 break;
 
             case "record":
