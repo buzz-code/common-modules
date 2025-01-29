@@ -89,6 +89,8 @@ export class CallBase {
         if (Array.isArray(message))
             return message.map(this.#getMessage.bind(this))
                 .filter(Boolean)
+                .map(item => item.replace(/"/g, ''))
+                .map(item => item.replace(/\./g, ','))
                 .join('.');
 
         console.log('getMessage', message.type, message.text);
