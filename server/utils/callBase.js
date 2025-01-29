@@ -96,6 +96,10 @@ export class CallBase {
         console.log('getMessage', message.type, message.text);
 
         if (messageType.text?.startsWith('#')) {
+            console.log('skiping message with #', message.type, message.text);
+            return null;
+        } else if (!messageType.text) {
+            console.log('skiping empty message', message.type, message.text);
             return null;
         }
 
