@@ -89,8 +89,6 @@ export class CallBase {
         if (Array.isArray(message))
             return message.map(this.#getMessage.bind(this))
                 .filter(Boolean)
-                .map(item => item.replace(/"/g, ''))
-                .map(item => item.replace(/\./g, ','))
                 .join('.');
 
         console.log('getMessage', message.type, message.text);
@@ -103,7 +101,8 @@ export class CallBase {
             return null;
         }
 
-        return `${messageType[message.type]}-${message.text}`;
+        const cleanedText = message.text.replace(/"/g, '').replace(/\./g, ',');
+        return `${messageType[message.type]}-${cleanedText}`;
     }
     #getReadDef(param, mode, options) {
         let res = [param];
