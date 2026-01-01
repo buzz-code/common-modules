@@ -45,7 +45,7 @@ var config = {
         }
     },
     devtool: "hidden-source-map",
-    stats: 'verbose',
+    stats: 'normal',
 };
 
 module.exports = config;
