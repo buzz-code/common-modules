@@ -62,6 +62,12 @@ export const applyFilters = (query, filters) => {
                 case 'date-after':
                     query.where(filter.field, '<=', moment(filter.value).format('YYYY-MM-DD'));
                     break;
+                case 'date-before-or-null':
+                    query.where(q => q.whereNull(filter.field).orWhere(filter.field, '>=', moment(filter.value).format('YYYY-MM-DD')));
+                    break;
+                case 'date-after-or-null':
+                    query.where(q => q.whereNull(filter.field).orWhere(filter.field, '<=', moment(filter.value).format('YYYY-MM-DD')));
+                    break;
                 default:
                     break;
             }
