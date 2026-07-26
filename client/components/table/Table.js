@@ -39,12 +39,13 @@ const Table = ({
   isBulkDelete,
   isExportPdfLandscape = false,
   customMaterialOptions = {},
+  externalTableRef,
 }) => {
   const dispatch = useDispatch();
   const { isLoading, data, error } = useSelector((state) => state[entity]);
   const [validationError, setValidationError] = useState(null);
   const [conditions, setConditions] = useState({});
-  const tableRef = createRef();
+  const tableRef = externalTableRef || createRef();
   const tableTitle = useMemo(() => 'רשימת ' + title, [title]);
   const isFirstTimeRef = useRef(true);
 
