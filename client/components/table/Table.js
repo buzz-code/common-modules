@@ -74,15 +74,26 @@ const Table = ({
   const handleBulkDelete = useCallback((event, selectedRows) => Promise.allSettled(selectedRows.map((item) => onRowDelete(item))).then(tableRef.current.onQueryChange), [onRowDelete, tableRef]);
 
   const getData = useCallback((query) => {
-    return dispatch(crudAction.fetchAll(entity, query, conditions))
-      .then((res) => res.data)
-      .then((result) => {
-        return {
-          data: result.data,
-          page: result.page,
-          totalCount: result.total,
-        };
-      });
+    const fetchPage = (pageQuery) =>
+      dispatch(crudAction.fetchAll(entity, pageQuery, conditions))
+        .then((res) => res.data)
+        .then((result) => {
+          if (result.data.length === 0 && pageQuery.page > 0) {
+            // The requested page came back empty (e.g. we just deleted the last
+            // row on it), so its rows no longer exist. Step back ourselves instead
+            // of resolving with an empty page: @material-table/core's own
+            // out-of-range page correction (componentDidUpdate) can retrigger
+            // itself off stale state and fire dozens of duplicate requests before
+            // hitting React's nested-update limit and crashing the page.
+            return fetchPage({ ...pageQuery, page: pageQuery.page - 1 });
+          }
+          return {
+            data: result.data,
+            page: result.page,
+            totalCount: result.total,
+          };
+        });
+    return fetchPage(query);
   }, [dispatch, entity, JSON.stringify(conditions)]);
 
   const handleFilterChange = useCallback((conditions) => {
